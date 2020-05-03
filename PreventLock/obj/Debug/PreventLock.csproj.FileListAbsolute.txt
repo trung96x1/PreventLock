@@ -1,9 +1,0 @@
-C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\bin\Debug\PreventLock.exe.config
-C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\bin\Debug\PreventLock.exe
-C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\bin\Debug\PreventLock.pdb
-C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\obj\Debug\PreventLock.csprojResolveAssemblyReference.cache
-C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\obj\Debug\PreventLock.Form1.resources
-C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\obj\Debug\PreventLock.Properties.Resources.resources
-C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\obj\Debug\PreventLock.csproj.GenerateResource.Cache
-C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\obj\Debug\PreventLock.exe
-C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\obj\Debug\PreventLock.pdb
