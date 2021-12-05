@@ -7,3 +7,4 @@ C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\obj\Debug\Pr
 C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\obj\Debug\PreventLock.csproj.GenerateResource.Cache
 C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\obj\Debug\PreventLock.exe
 C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\obj\Debug\PreventLock.pdb
+C:\Users\Trung96x1\Documents\Visual Project\PreventLock\PreventLock\obj\Debug\PreventLock.SaveScreen.resources

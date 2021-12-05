@@ -73,11 +73,6 @@ namespace PreventLock
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void preventLockToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!this.preventLockToolStripMenuItem.Checked)
@@ -96,6 +91,21 @@ namespace PreventLock
                 userSetting.setString(UserSetting.TAG_ENABLE_ANCHOR_POSITION,"FALSE");
             }
             userSetting.save();
+        }
+
+        //Get all window screen then make save screen
+        private void saveScreenToolStripMenuItem_Click( object sender, EventArgs e ) {
+            for(int i = 0; i < System.Windows.Forms.Screen.AllScreens.Length; i++) {
+                Console.WriteLine(i);
+                System.Windows.Forms.Screen monitor = System.Windows.Forms.Screen.AllScreens[i];
+                SaveScreen saveScreen = new SaveScreen(monitor);
+                saveScreen.Owner = this;
+                saveScreen.Show();
+            }
+        }
+
+        private void exitToolStripMenuItem_Click( object sender, EventArgs e ) {
+            this.Close();
         }
 
         private void mainLoop_Tick( object sender, EventArgs e ) {
@@ -121,6 +131,12 @@ namespace PreventLock
                 this.Top = Int32.Parse(topValue);
                 this.currentPossitionToolStripMenuItem.CheckState = CheckState.Checked;
             }
+        }
+
+        //Close all Save Screen
+        public void closeAllSubWindown() {
+            foreach(Form subScreen in this.OwnedForms)
+                subScreen.Close();
         }
     }
 }

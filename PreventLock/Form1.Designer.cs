@@ -31,34 +31,27 @@ namespace PreventLock
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.preventLockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.currentPossitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.ContextMenuStrip = this.contextMenuStrip1;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(81, 99);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.preventLockToolStripMenuItem,
             this.currentPossitionToolStripMenuItem,
+            this.saveScreenToolStripMenuItem,
+            this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(166, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(166, 120);
             // 
             // preventLockToolStripMenuItem
             // 
@@ -78,6 +71,19 @@ namespace PreventLock
             this.currentPossitionToolStripMenuItem.Text = "Current Possition";
             this.currentPossitionToolStripMenuItem.Click += new System.EventHandler(this.currentPossitionToolStripMenuItem_Click);
             // 
+            // saveScreenToolStripMenuItem
+            // 
+            this.saveScreenToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveScreenToolStripMenuItem.Image")));
+            this.saveScreenToolStripMenuItem.Name = "saveScreenToolStripMenuItem";
+            this.saveScreenToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.saveScreenToolStripMenuItem.Text = "Save Screen";
+            this.saveScreenToolStripMenuItem.Click += new System.EventHandler(this.saveScreenToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(162, 6);
+            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
@@ -85,6 +91,17 @@ namespace PreventLock
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.ContextMenuStrip = this.contextMenuStrip1;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(0, 1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(81, 99);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             // 
             // Form1
             // 
@@ -101,8 +118,8 @@ namespace PreventLock
             this.TopMost = true;
             this.TransparencyKey = System.Drawing.Color.LimeGreen;
             this.LocationChanged += new System.EventHandler(this.Form1_LocationChanged);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -114,6 +131,8 @@ namespace PreventLock
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem preventLockToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem currentPossitionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveScreenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 
