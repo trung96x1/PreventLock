@@ -31,11 +31,28 @@ namespace PreventLock
             mainLoop.Interval = 1000;
             mainLoop.Tick += mainLoop_Tick;
             mainLoop.Start();
-            
 
-
+            quickPause();
         }
 
+//SETUP STARTUP VALUE
+#region SETUP STARTUP VALUE
+        private void mainLoop_Tick( object sender, EventArgs e ) {
+            //wait 1s to load UserSetting
+            mainLoop.Stop();
+            String leftValue = userSetting.getString(UserSetting.TAG_POSITON_LEFT, "0");
+            String topValue = userSetting.getString(UserSetting.TAG_POSITON_TOP, "0");
+            this.Left = Int32.Parse(leftValue);
+            this.Top = Int32.Parse(topValue);
+            String anchorValue = userSetting.getString(UserSetting.TAG_ENABLE_ANCHOR_POSITION, "FALSE");
+            Boolean isAnchor = Boolean.Parse(anchorValue);
+            if(isAnchor)
+                this.currentPossitionToolStripMenuItem.CheckState = CheckState.Checked;
+        }
+#endregion
+
+//ANCHOR POSITION
+#region ANCHOR POSITION
         //DRAG FORM FROM PICTURE
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -52,7 +69,31 @@ namespace PreventLock
             }
         }
 
-        //PREVENT LOCK
+        private void currentPossitionToolStripMenuItem_Click( object sender, EventArgs e ) {
+            if(this.currentPossitionToolStripMenuItem.Checked) {
+                userSetting.setString(UserSetting.TAG_ENABLE_ANCHOR_POSITION, "TRUE");
+                userSetting.setString(UserSetting.TAG_POSITON_LEFT, this.Left.ToString());
+                userSetting.setString(UserSetting.TAG_POSITON_TOP, this.Top.ToString());
+            } else {
+                userSetting.setString(UserSetting.TAG_ENABLE_ANCHOR_POSITION, "FALSE");
+            }
+            userSetting.save();
+        }
+        private void Form1_LocationChanged( object sender, EventArgs e ) {
+            String anchorValue = userSetting.getString(UserSetting.TAG_ENABLE_ANCHOR_POSITION, "FALSE");
+            Boolean isAnchor = Boolean.Parse(anchorValue);
+            if(isAnchor) {
+                String leftValue = userSetting.getString(UserSetting.TAG_POSITON_LEFT, "0");
+                String topValue = userSetting.getString(UserSetting.TAG_POSITON_TOP, "0");
+                this.Left = Int32.Parse(leftValue);
+                this.Top = Int32.Parse(topValue);
+                this.currentPossitionToolStripMenuItem.CheckState = CheckState.Checked;
+            }
+        }
+#endregion
+
+//PREVENT LOCK
+#region PREVENT LOCK
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         static extern EXECUTION_STATE SetThreadExecutionState(EXECUTION_STATE esFlags);
         public enum EXECUTION_STATE : uint
@@ -80,19 +121,10 @@ namespace PreventLock
             else
                 mPVLock.Resume();
         }
+#endregion
 
-        private void currentPossitionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if(this.currentPossitionToolStripMenuItem.Checked){
-                userSetting.setString(UserSetting.TAG_ENABLE_ANCHOR_POSITION,"TRUE");
-                userSetting.setString(UserSetting.TAG_POSITON_LEFT,this.Left.ToString());
-                userSetting.setString(UserSetting.TAG_POSITON_TOP,this.Top.ToString());
-            }else{
-                userSetting.setString(UserSetting.TAG_ENABLE_ANCHOR_POSITION,"FALSE");
-            }
-            userSetting.save();
-        }
-
+//SAVE SCREEN
+#region SAVE SCREEN
         //Get all window screen then make save screen
         private void saveScreenToolStripMenuItem_Click( object sender, EventArgs e ) {
             for(int i = 0; i < System.Windows.Forms.Screen.AllScreens.Length; i++) {
@@ -104,39 +136,37 @@ namespace PreventLock
             }
         }
 
-        private void exitToolStripMenuItem_Click( object sender, EventArgs e ) {
-            this.Close();
-        }
-
-        private void mainLoop_Tick( object sender, EventArgs e ) {
-            //wait 1s to load UserSetting
-            mainLoop.Stop();
-            String leftValue = userSetting.getString(UserSetting.TAG_POSITON_LEFT, "0");
-            String topValue = userSetting.getString(UserSetting.TAG_POSITON_TOP, "0");
-            this.Left = Int32.Parse(leftValue);
-            this.Top = Int32.Parse(topValue);
-            String anchorValue = userSetting.getString(UserSetting.TAG_ENABLE_ANCHOR_POSITION, "FALSE");
-            Boolean isAnchor = Boolean.Parse(anchorValue);
-            if(isAnchor)      
-                this.currentPossitionToolStripMenuItem.CheckState = CheckState.Checked;
-        }
-
-        private void Form1_LocationChanged( object sender, EventArgs e ) {
-            String anchorValue = userSetting.getString(UserSetting.TAG_ENABLE_ANCHOR_POSITION, "FALSE");
-            Boolean isAnchor = Boolean.Parse(anchorValue);
-            if(isAnchor) {
-                String leftValue = userSetting.getString(UserSetting.TAG_POSITON_LEFT, "0");
-                String topValue = userSetting.getString(UserSetting.TAG_POSITON_TOP, "0");
-                this.Left = Int32.Parse(leftValue);
-                this.Top = Int32.Parse(topValue);
-                this.currentPossitionToolStripMenuItem.CheckState = CheckState.Checked;
-            }
-        }
-
         //Close all Save Screen
         public void closeAllSubWindown() {
             foreach(Form subScreen in this.OwnedForms)
                 subScreen.Close();
+        }
+#endregion
+
+//QUICK PAUSE SHORTCUT
+//Press subtract in numlock to minimize all window and mute speaker
+#region QUICK PAUSE SHORTCUT
+        private static Boolean isMinimize = false;
+
+        private void quickPause() {
+            GearDetector.KeyBoardCallback callback = keyboardCallback;
+            GearDetector.RegisterKeyBoardCallBack(callback);
+        }
+
+        private void keyboardCallback( int key ) {
+            if(key == (int)Keys.Subtract) {
+                WindowSpeaker.switchMute();
+                if(isMinimize)
+                    WindowManager.undoMinimizeAll();
+                else
+                    WindowManager.minimizeAll();
+                isMinimize = !isMinimize;
+            }
+        }
+        
+#endregion
+        private void exitToolStripMenuItem_Click( object sender, EventArgs e ) {
+            this.Close();
         }
     }
 }
