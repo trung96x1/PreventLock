@@ -10,15 +10,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PreventLock
-{
-    public partial class Form1 : Form
-    {
+namespace PreventLock {
+    public partial class Form1 : Form {
         UserSetting userSetting = null;
         private Thread mPVLock;
         System.Windows.Forms.Timer mainLoop = null;
-        public Form1()
-        {
+        public Form1() {
             InitializeComponent();
             userSetting = UserSetting.getInstance();
 
@@ -35,8 +32,8 @@ namespace PreventLock
             quickPause();
         }
 
-//SETUP STARTUP VALUE
-#region SETUP STARTUP VALUE
+        //SETUP STARTUP VALUE
+        #region SETUP STARTUP VALUE
         private void mainLoop_Tick( object sender, EventArgs e ) {
             //wait 1s to load UserSetting
             mainLoop.Stop();
@@ -49,21 +46,19 @@ namespace PreventLock
             if(isAnchor)
                 this.currentPossitionToolStripMenuItem.CheckState = CheckState.Checked;
         }
-#endregion
+        #endregion
 
-//ANCHOR POSITION
-#region ANCHOR POSITION
+        //ANCHOR POSITION
+        #region ANCHOR POSITION
         //DRAG FORM FROM PICTURE
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
         [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        public static extern int SendMessage( IntPtr hWnd, int Msg, int wParam, int lParam );
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
+        private void pictureBox1_MouseDown( object sender, MouseEventArgs e ) {
+            if(e.Button == MouseButtons.Left) {
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
@@ -90,41 +85,37 @@ namespace PreventLock
                 this.currentPossitionToolStripMenuItem.CheckState = CheckState.Checked;
             }
         }
-#endregion
+        #endregion
 
-//PREVENT LOCK
-#region PREVENT LOCK
+        //PREVENT LOCK
+        #region PREVENT LOCK
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern EXECUTION_STATE SetThreadExecutionState(EXECUTION_STATE esFlags);
-        public enum EXECUTION_STATE : uint
-        {
-            ES_AWAYMODE_REQUIRED    = 0x00000040,
-            ES_CONTINUOUS           = 0x80000000,
-            ES_DISPLAY_REQUIRED     = 0x00000002,
-            ES_SYSTEM_REQUIRED      = 0x00000001
+        static extern EXECUTION_STATE SetThreadExecutionState( EXECUTION_STATE esFlags );
+        public enum EXECUTION_STATE : uint {
+            ES_AWAYMODE_REQUIRED = 0x00000040,
+            ES_CONTINUOUS = 0x80000000,
+            ES_DISPLAY_REQUIRED = 0x00000002,
+            ES_SYSTEM_REQUIRED = 0x00000001
             // Legacy flag, should not be used.
             // ES_USER_PRESENT = 0x00000004
         }
-        private void preventLock()
-        {
-            while(true)
-            {
+        private void preventLock() {
+            while(true) {
                 SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_DISPLAY_REQUIRED);
                 Thread.Sleep(1000);
             }
         }
 
-        private void preventLockToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!this.preventLockToolStripMenuItem.Checked)
+        private void preventLockToolStripMenuItem_Click( object sender, EventArgs e ) {
+            if(!this.preventLockToolStripMenuItem.Checked)
                 mPVLock.Suspend();
             else
                 mPVLock.Resume();
         }
-#endregion
+        #endregion
 
-//SAVE SCREEN
-#region SAVE SCREEN
+        //SAVE SCREEN
+        #region SAVE SCREEN
         //Get all window screen then make save screen
         private void saveScreenToolStripMenuItem_Click( object sender, EventArgs e ) {
             for(int i = 0; i < System.Windows.Forms.Screen.AllScreens.Length; i++) {
@@ -141,11 +132,22 @@ namespace PreventLock
             foreach(Form subScreen in this.OwnedForms)
                 subScreen.Close();
         }
-#endregion
+        #endregion
 
-//QUICK PAUSE SHORTCUT
-//Press subtract in numlock to minimize all window and mute speaker
-#region QUICK PAUSE SHORTCUT
+        //QUICK PAUSE SHORTCUT
+        //Press subtract in numlock to minimize all window and mute speaker
+        //Press ESCto minimize current window
+        #region QUICK PAUSE SHORTCUT
+
+        private const int SW_SHOWNORMAL = 1;
+        private const int SW_SHOWMINIMIZED = 2;
+        private const int SW_SHOWMAXIMIZED = 3;
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindowAsync( IntPtr hWnd, int nCmdShow );
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
         private static Boolean isMinimize = false;
 
         private void quickPause() {
@@ -162,9 +164,14 @@ namespace PreventLock
                     WindowManager.minimizeAll();
                 isMinimize = !isMinimize;
             }
+            if(key == (int)Keys.Escape) {
+                IntPtr curWindow = GetForegroundWindow();
+                ShowWindowAsync(curWindow, SW_SHOWMINIMIZED);
+            }
         }
+
+        #endregion
         
-#endregion
         private void exitToolStripMenuItem_Click( object sender, EventArgs e ) {
             this.Close();
         }
