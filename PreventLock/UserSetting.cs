@@ -60,6 +60,7 @@ namespace PreventLock {
 
         public void save() {
             Thread threadSaveXML = new Thread(writeUserSettingsToXML);
+            threadSaveXML.IsBackground = true;
             threadSaveXML.Start();
         }
 

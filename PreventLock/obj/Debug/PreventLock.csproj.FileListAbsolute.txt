@@ -18,3 +18,5 @@ C:\Users\Trung96x1\Documents\Visual Project\PreventLock - DEV\PreventLock\obj\De
 C:\Users\Trung96x1\Documents\Visual Project\PreventLock - DEV\PreventLock\obj\Debug\PreventLock.Properties.Resources.resources
 C:\Users\Trung96x1\Documents\Visual Project\PreventLock - DEV\PreventLock\obj\Debug\PreventLock.SaveScreen.resources
 C:\Users\Trung96x1\Documents\Visual Project\PreventLock - DEV\PreventLock\obj\Debug\PreventLock.csproj.GenerateResource.Cache
+C:\Users\Trung96x1\Documents\Visual Project\PreventLock - DEV\PreventLock\bin\Debug\AudioSwitcher.AudioApi.CoreAudio.dll
+C:\Users\Trung96x1\Documents\Visual Project\PreventLock - DEV\PreventLock\bin\Debug\AudioSwitcher.AudioApi.dll

@@ -38,6 +38,7 @@ namespace PreventLock
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.audioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -47,18 +48,19 @@ namespace PreventLock
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.preventLockToolStripMenuItem,
             this.currentPossitionToolStripMenuItem,
+            this.audioToolStripMenuItem,
             this.saveScreenToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(166, 120);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(186, 142);
             // 
             // preventLockToolStripMenuItem
             // 
             this.preventLockToolStripMenuItem.CheckOnClick = true;
             this.preventLockToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("preventLockToolStripMenuItem.Image")));
             this.preventLockToolStripMenuItem.Name = "preventLockToolStripMenuItem";
-            this.preventLockToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.preventLockToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.preventLockToolStripMenuItem.Text = "Prevent Lock";
             this.preventLockToolStripMenuItem.Click += new System.EventHandler(this.preventLockToolStripMenuItem_Click);
             // 
@@ -67,7 +69,7 @@ namespace PreventLock
             this.currentPossitionToolStripMenuItem.CheckOnClick = true;
             this.currentPossitionToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("currentPossitionToolStripMenuItem.Image")));
             this.currentPossitionToolStripMenuItem.Name = "currentPossitionToolStripMenuItem";
-            this.currentPossitionToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.currentPossitionToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.currentPossitionToolStripMenuItem.Text = "Current Possition";
             this.currentPossitionToolStripMenuItem.Click += new System.EventHandler(this.currentPossitionToolStripMenuItem_Click);
             // 
@@ -75,20 +77,20 @@ namespace PreventLock
             // 
             this.saveScreenToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveScreenToolStripMenuItem.Image")));
             this.saveScreenToolStripMenuItem.Name = "saveScreenToolStripMenuItem";
-            this.saveScreenToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.saveScreenToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.saveScreenToolStripMenuItem.Text = "Save Screen";
             this.saveScreenToolStripMenuItem.Click += new System.EventHandler(this.saveScreenToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(162, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(182, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exitToolStripMenuItem.Image")));
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -102,6 +104,15 @@ namespace PreventLock
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            // 
+            // audioToolStripMenuItem
+            // 
+            this.audioToolStripMenuItem.CheckOnClick = true;
+            this.audioToolStripMenuItem.Image = global::PreventLock.Properties.Resources.Audio_16;
+            this.audioToolStripMenuItem.Name = "audioToolStripMenuItem";
+            this.audioToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.audioToolStripMenuItem.Text = "Switch Audio Output";
+            this.audioToolStripMenuItem.Click += new System.EventHandler(this.audioToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -133,6 +144,7 @@ namespace PreventLock
         private System.Windows.Forms.ToolStripMenuItem currentPossitionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveScreenToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem audioToolStripMenuItem;
     }
 }
 

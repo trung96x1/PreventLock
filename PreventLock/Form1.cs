@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AudioSwitcher.AudioApi;
+using AudioSwitcher.AudioApi.CoreAudio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,17 +14,30 @@ using System.Windows.Forms;
 
 namespace PreventLock {
     public partial class Form1 : Form {
+        CoreAudioController Controller;
         UserSetting userSetting = null;
         private Thread mPVLock;
         System.Windows.Forms.Timer mainLoop = null;
         public Form1() {
             InitializeComponent();
+            
+            //Set worker thread could change UI
+            Control.CheckForIllegalCrossThreadCalls = false;
+
             userSetting = UserSetting.getInstance();
 
             mPVLock = new Thread(preventLock);
             mPVLock.IsBackground = true;
             mPVLock.Start();
             this.preventLockToolStripMenuItem.CheckState = CheckState.Checked;
+
+            //Set init checked state of audioToolStripMenuItem
+
+            Controller = new CoreAudioController();
+            CoreAudioDevice defaultOutputDevice = Controller.DefaultPlaybackDevice;
+            if(defaultOutputDevice.FullName.Contains("Headphone")){
+                audioToolStripMenuItem.CheckState = CheckState.Checked;
+            }
 
             mainLoop = new System.Windows.Forms.Timer();
             mainLoop.Interval = 1000;
@@ -111,6 +126,26 @@ namespace PreventLock {
                 mPVLock.Suspend();
             else
                 mPVLock.Resume();
+        }
+        #endregion
+
+        //SWITCH AUDIO
+        #region SWITCH_AUDIO
+        private void audioToolStripMenuItem_Click( object sender, EventArgs e ) {
+            CoreAudioDevice defaultOutputDevice = Controller.DefaultPlaybackDevice;
+
+            foreach(var device in Controller.GetPlaybackDevices(DeviceState.Active)) {
+                //Switch between 2 ouyput audio
+                if(!defaultOutputDevice.FullName.Equals(device.FullName)) {
+                    Controller.DefaultPlaybackDevice = device;
+                    Controller.DefaultPlaybackCommunicationsDevice = device;
+                    if(device.FullName.Contains("Headphone")) {
+                        audioToolStripMenuItem.CheckState = CheckState.Checked;
+                        Console.WriteLine(device.FullName);
+                    }
+                    break;
+                }
+            }
         }
         #endregion
 
